@@ -99,30 +99,100 @@ export const parseBold = {
     return newLine;
   },
 };
+export const parseItalic = {
+  regex: regexList.italic,
+  parse: (line: string) => {
+    let newLine = line;
+
+    line.match(regexList.italic)?.map((str) => {
+      const newStr = createElement(
+        "i",
+        "text-slate-900 italic",
+        str.slice(2, -2),
+      ).outerHTML.toString();
+
+      line = newLine.replace(str, newStr);
+    });
+
+    return newLine;
+  },
+};
+export const parseStrikeThroughs = {
+  regex: regexList.strikethroughs,
+  parse: (line: string) => {
+    let newLine = line;
+
+    line.match(regexList.strikethroughs)?.map((str) => {
+      const newStr = createElement(
+        "del",
+        "bg-red-500 text-slate-900 italic",
+        str.slice(2, -2),
+      ).outerHTML.toString();
+
+      newLine = line.replace(str, newStr);
+    });
+
+    return newLine;
+  },
+};
+export const parseUnderline = {
+  regex: regexList.underline,
+  parse: (line: string) => {
+    let newLine = line;
+
+    line.match(regexList.underlines)?.map((str) => {
+      const newStr = createElement(
+        "ins",
+        "bg-red-500 text-slate-900 italic",
+        str.slice(1, -1),
+      ).outerHTML.toString();
+
+      newLine = line.replace(str, newStr);
+    });
+
+    return newLine;
+  },
+};
 
 export function parseInput(input: string) {
   const lines = input.split("\n");
   const output = [];
 
   for (let i = 0; i < lines.length; i++) {
+    let isModified = false;
     let line = lines[i];
 
     if (parseH1.regex.test(line)) {
+      isModified = true;
       output.push(parseH1.parse(line));
     } else if (parseH2.regex.test(line)) {
+      isModified = true;
+
       output.push(parseH2.parse(line));
     } else if (parseH3.regex.test(line)) {
+      isModified = true;
+
       output.push(parseH3.parse(line));
     } else if (parseH4.regex.test(line)) {
+      isModified = true;
+
       output.push(parseH4.parse(line));
     } else if (parseH5.regex.test(line)) {
+      isModified = true;
+
       output.push(parseH5.parse(line));
     } else if (parseH6.regex.test(line)) {
+      isModified = true;
+
       output.push(parseH6.parse(line));
     } else if (parseBlockquote.parse(line)) {
+      isModified = true;
+
       line = line.slice(2);
       line = createElement("blockquote", "text-md", line).outerHTML.toString();
     } else if (line.startsWith("```")) {
+      isModified = true;
+
       line = line.slice(4);
       let code = line;
       // const codeOutput = [];
@@ -154,52 +224,22 @@ export function parseInput(input: string) {
       continue;
     }
 
-    if (regexList.bold.test(line)) {
-      line.match(regexList.bold)?.map((str) => {
-        const newStr = createElement(
-          "b",
-          "font-bold text-slate-900",
-          str.slice(2, -2),
-        ).outerHTML.toString();
-
-        line = line.replace(str, newStr);
-      });
+    if (parseBold.regex.test(line)) {
+      line = parseBold.parse(line);
     }
-    if (regexList.italic.test(line)) {
-      line.match(regexList.italic)?.map((str) => {
-        const newStr = createElement(
-          "i",
-          "bg-red text-slate-900 italic",
-          str.slice(2, -2),
-        ).outerHTML.toString();
-
-        line = line.replace(str, newStr);
-      });
+    if (parseItalic.regex.test(line)) {
+      line = parseItalic.parse(line);
     }
-    if (regexList.strikethroughs.test(line)) {
-      line.match(regexList.strikethroughs)?.map((str) => {
-        const newStr = createElement(
-          "del",
-          "bg-red-500 text-slate-900 italic",
-          str.slice(2, -2),
-        ).outerHTML.toString();
-
-        line = line.replace(str, newStr);
-      });
+    if (parseStrikeThroughs.regex.test(line)) {
+      line = parseStrikeThroughs.parse(line);
     }
-    if (regexList.underlines.test(line)) {
-      line.match(regexList.underlines)?.map((str) => {
-        const newStr = createElement(
-          "ins",
-          "bg-red-500 text-slate-900 italic",
-          str.slice(1, -1),
-        ).outerHTML.toString();
-
-        line = line.replace(str, newStr);
-      });
+    if (parseUnderline.regex.test(line)) {
+      line = parseUnderline.parse(line);
     }
 
-    output.push(createElement("p", "text-md", line).outerHTML.toString());
+    if (!isModified) {
+      output.push(createElement("p", "text-md", line).outerHTML.toString());
+    }
   }
 
   return output.join("");

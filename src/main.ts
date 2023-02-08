@@ -1,6 +1,5 @@
 import "./style.css";
-import { regexList } from "./regex";
-import { parseInput } from "./parser";
+import { parseInput } from "./parsers";
 import { createElement, createButton } from "./dom";
 
 const body = document.querySelector("body") as HTMLBodyElement;
@@ -153,6 +152,5 @@ editor.appendChild(outputContainer);
 outputContainer.innerHTML = parseInput(inputText);
 
 document.addEventListener("input", () => {
-  // console.log(e?.target?.value);
   outputContainer.innerHTML = parseInput(textareas.value);
 });
