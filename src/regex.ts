@@ -14,8 +14,8 @@ export const regexList = {
 
   bold: /\*\*[^\*\n]+\*\*/gm,
 
-  // italic: /^(\*)/,
   italic: /\_\_[^\_\n]+\_\_/gm,
+  // italic: /^(\*)/,
   // italics: /^((\s*(\*)[^\n]+))+$/gm,
 
   code: /^(```)/,
@@ -23,10 +23,10 @@ export const regexList = {
 
   images: /^((\s*(\!)[^\n]+))+$/gm,
 
-  // p: /^/,
   ul: /^/,
   li: /^(\* )/,
   ol: /^(\d\. )/,
+  // p: /^/,
 
   link: /^(\[)/,
   links: /^((\s*(\!)[^\n]+))+$/gm,
@@ -35,8 +35,8 @@ export const regexList = {
   strikeLine: /^(\~\~)/,
   strikethroughs: /\~\~[^\~\n]+\~\~/gm,
 
-  // subscript: /^(\~)/,
   subscripts: /((\s*(\~)[^\n]+))+$/gm,
+  // subscript: /^(\~)/,
 
   superscript: /^(\^)/,
   superscripts: /((\s*(\^)[^\n]+))+$/gm,

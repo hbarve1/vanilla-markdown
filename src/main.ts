@@ -13,8 +13,8 @@ const h5 = createButton("H5");
 const h6 = createButton("H6");
 const Bold = createButton("B");
 const Italic = createButton("I");
-// const Underline =  createButton("");
-// const Strike =   createButton("");
+const Underline = createButton("U");
+const Strike = createButton("S");
 // const Left =   createButton("");
 // const Center =   createButton("");
 // const Right =  createButton("");
@@ -63,8 +63,8 @@ toolbar.appendChild(h5);
 toolbar.appendChild(h6);
 toolbar.appendChild(Bold);
 toolbar.appendChild(Italic);
-// toolbar.appendChild(Underline);
-// toolbar.appendChild(Strike);
+toolbar.appendChild(Underline);
+toolbar.appendChild(Strike);
 // toolbar.appendChild(Left);
 // toolbar.appendChild(Center);
 // toolbar.appendChild(Right);
@@ -101,28 +101,23 @@ toolbar.appendChild(Italic);
 // toolbar.appendChild(InsertHorizontalRule);
 
 let inputText = `
-# Hello World
-## This is a heading
-### This is a subheading
-#### This is a subheading
-##### This is a subheading
-###### This is a subheading
-This is a paragraph
-This is a paragraph
+# This is a Heading H1
+## This is a Heading H2 
+### This is a Heading H3
+#### This is a Heading H4
+##### This is a Heading H5
+###### This is a Heading H6
+**This** to be **bold** and this to be __italic__ and this to be ~~strikethrough~~
+_This is a underline_
 
+This is a paragraph
+This is a paragraph
 This is a paragraph
 * This is a list item
 * This is a list item
-
-I **this** to be **bold** and this to be __italic__ and this to be ~~strikethrough~~
 this is a link [link](https://www.google.com)
 this is an image ![image](https://www.google.com)
 this is a code block
-
-_this is a underline_
-
-
-
 
 `;
 

@@ -242,7 +242,7 @@ export function parseInput(input: string) {
     }
   }
 
-  return output.join("");
+  // return output.join("");
 
   return lines
     .map((line) => {
@@ -317,21 +317,21 @@ export function parseInput(input: string) {
             "bg-red-500 text-slate-900 italic",
             str.slice(2, -2),
           ).outerHTML.toString();
-
           line = line.replace(str, newStr);
         });
       }
-      if (regexList.strikethroughs.test(line)) {
-        line.match(regexList.strikethroughs)?.map((str) => {
+      if (regexList.underlines.test(line)) {
+        line.match(regexList.underlines)?.map((str) => {
           const newStr = createElement(
-            "del",
-            "bg-red-500 text-slate-900 italic",
-            str.slice(2, -2),
+            "ins",
+            "text-slate-900 italic",
+            str.slice(1, -1),
           ).outerHTML.toString();
 
           line = line.replace(str, newStr);
         });
       }
+
 
       return createElement("p", "text-md", line).outerHTML.toString();
     })
